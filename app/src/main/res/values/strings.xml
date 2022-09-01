@@ -1,25 +1,27 @@
 <resources>
+    <!-- App -->
     <string name="app_name">Events</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="event_info_description_title">Description</string>
-    <string name="event_info_read_more_ds">Read more</string>
-    <string name="join_event_btn">Join</string>
-    <string name="search_txt_field_hint">Search</string>
+
+    <!-- Entry Fragment -->
     <string name="name_txt_field_hint">Name</string>
     <string name="e_mail_txt_field_hint">E-mail</string>
     <string name="entry_btn_txt">Enter</string>
-    <string name="user_name">user_name</string>
-    <string name="user_email">user_email</string>
+    <string name="entry_title">Events App</string>
     <string name="invalid_name_error">Invalid name</string>
     <string name="invalid_email_error">Invalid email</string>
-    <string name="event_bundle">event_bundle</string>
+
+    <!-- Events List Fragment -->
     <string name="try_again_btn_txt">Try again</string>
-    <string name="error_network_toast">Network error</string>
+
+    <!-- Event Details Fragment -->
+    <string name="event_info_read_more_ds">Read more</string>
+    <string name="join_event_btn">Join</string>
     <string name="person_already_in_event_error">This person already is on this event</string>
 
+    <!-- Network Error Messages -->
     <string name="not_found_error">Not found</string>
     <string name="access_denied_error">Access denied</string>
     <string name="service_unavailable_error">Service unavailable</string>
     <string name="unknown_error">Unknown error</string>
+    <string name="error_network_toast">Network error</string>
 </resources>

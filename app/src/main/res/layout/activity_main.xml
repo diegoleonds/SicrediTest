@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/events_list"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.EventsListFragment">
+    tools:context=".ui.fragment.entry.EntryFragment">
 
-    <!--
-    <fragment
-        android:id="@+id/fragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/my_nav" />
-        -->
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        app:navGraph="@navigation/events_nav" />
+</androidx.constraintlayout.widget.ConstraintLayout>

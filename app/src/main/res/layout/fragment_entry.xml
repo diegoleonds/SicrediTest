@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@id/logo"
         android:layout_marginTop="20dp"
         style="@style/MainTitle"
-        android:text="Events App"/>
+        android:text="@string/entry_title"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_txt_inputlayout"
@@ -79,8 +79,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="18dp"
         style="@style/Widget.MaterialComponents.Button.Icon"
-        android:text="@string/entry_btn_txt"
-        />
+        android:text="@string/entry_btn_txt" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

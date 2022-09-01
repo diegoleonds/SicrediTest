@@ -8,21 +8,15 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface EventDataSource {
-    suspend fun getEvents(): List<Event>
-    suspend fun getEventDetails(id: Long): Event
-    suspend fun checkIn(eventPerson: EventPerson)
-}
-
-interface EventService : EventDataSource {
+interface EventService {
     @GET("events")
-    override suspend fun getEvents(): List<Event>
+    suspend fun getEvents(): List<Event>
 
     @GET("events/{id}")
-    override suspend fun getEventDetails(
+    suspend fun getEventDetails(
         @Path("id", encoded = true) id: Long
     ): Event
 
     @POST("checkin")
-    override suspend fun checkIn(@Body eventPerson: EventPerson)
+    suspend fun checkIn(@Body eventPerson: EventPerson)
 }

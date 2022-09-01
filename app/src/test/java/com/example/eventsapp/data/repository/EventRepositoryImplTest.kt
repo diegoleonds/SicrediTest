@@ -1,6 +1,6 @@
 package com.example.eventsapp.data.repository
 
-import com.example.eventsapp.data.datasource.EventDataSource
+import com.example.eventsapp.data.datasource.EventService
 import com.example.eventsapp.data.error.ErrorHandler
 import com.example.eventsapp.data.model.EventPerson
 import com.example.eventsapp.data.model.Result
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 
 internal class EventRepositoryImplTest {
     private val errorHandler: ErrorHandler = mockk()
-    private val dataSource: EventDataSource = mockk()
+    private val dataSource: EventService = mockk()
     private val repository = EventRepositoryImpl(dataSource, errorHandler)
 
     private val eventPerson = EventPerson(

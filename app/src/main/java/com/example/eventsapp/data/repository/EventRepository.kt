@@ -1,6 +1,7 @@
 package com.example.eventsapp.data.repository
 
-import com.example.eventsapp.data.datasource.EventDataSource
+import android.util.Log
+import com.example.eventsapp.data.datasource.EventService
 import com.example.eventsapp.data.error.ErrorHandler
 import com.example.eventsapp.data.model.Event
 import com.example.eventsapp.data.model.EventPerson
@@ -13,9 +14,14 @@ interface EventRepository {
 }
 
 class EventRepositoryImpl(
-    val dataSource: EventDataSource,
+    val dataSource: EventService,
     val errorHandler: ErrorHandler
 ) : EventRepository {
+
+    companion object {
+        const val LOG_TAG = "EventRepository"
+    }
+
     override suspend fun getEvents(): Result<List<Event>> {
         return wrapperInResult { dataSource.getEvents() }
     }
@@ -32,6 +38,7 @@ class EventRepositoryImpl(
         return try {
             Result.Success(block())
         } catch (t: Throwable) {
+            Log.e(LOG_TAG, t.message ?: "empty message")
             Result.Fail(errorHandler.getError(t))
         }
     }

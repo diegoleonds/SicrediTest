@@ -1,12 +1,12 @@
 package com.example.eventsapp.config
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.example.eventsapp.data.di.dataModule
 import com.example.eventsapp.ui.di.uiModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class MyApplication : Application() {
+class MyApplication : MultiDexApplication() {
     /**
      * Base Application class for the app
      * Start koin for dependency injection
