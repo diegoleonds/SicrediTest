@@ -1,6 +1,6 @@
 # SicrediTest
 
-![](screens.jpg)
+![](app_prints.jpg)
 
 Teste https://github.com/WoopSicredi/jobs/issues/1
 
