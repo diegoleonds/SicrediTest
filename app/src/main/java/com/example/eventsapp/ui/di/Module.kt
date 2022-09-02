@@ -1,6 +1,5 @@
 package com.example.eventsapp.ui.di
 
-import com.example.eventsapp.data.repository.EventRepositoryImpl
 import com.example.eventsapp.ui.fragment.entry.EntryViewModel
 import com.example.eventsapp.ui.fragment.eventdetails.EventDetailsViewModel
 import com.example.eventsapp.ui.fragment.eventlist.EventListViewModel
@@ -9,6 +8,6 @@ import org.koin.dsl.module
 
 val uiModule = module {
     viewModel { EntryViewModel() }
-    viewModel { EventDetailsViewModel(get<EventRepositoryImpl>()) }
-    viewModel { EventListViewModel(get<EventRepositoryImpl>()) }
+    viewModel { EventDetailsViewModel(get()) }
+    viewModel { EventListViewModel(get()) }
 }

@@ -34,9 +34,6 @@
         <argument
             android:name="Event"
             app:argType="com.example.eventsapp.data.model.Event" />
-        <action
-            android:id="@+id/action_eventDetailsFragment_to_eventListFragment"
-            app:destination="@id/eventListFragment" />
     </fragment>
 
 </navigation>

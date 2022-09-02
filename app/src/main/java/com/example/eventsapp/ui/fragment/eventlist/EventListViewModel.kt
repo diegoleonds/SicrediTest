@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.eventsapp.data.model.Event
 import com.example.eventsapp.data.model.Result
-import com.example.eventsapp.data.repository.EventRepository
+import com.example.eventsapp.data.service.EventService
 import kotlinx.coroutines.launch
 
 class EventListViewModel(
-    val repository: EventRepository
+    private val service: EventService
 ) : ViewModel() {
     private val _result = MutableLiveData<Result<List<Event>>>()
     val result: LiveData<Result<List<Event>>>
@@ -19,7 +19,7 @@ class EventListViewModel(
     fun fetchEvents() {
         _result.value = Result.Loading()
         viewModelScope.launch {
-            _result.value = repository.getEvents()
+            _result.value = service.getEvents()
         }
     }
 }

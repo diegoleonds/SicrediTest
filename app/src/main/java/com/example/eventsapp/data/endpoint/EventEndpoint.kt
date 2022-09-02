@@ -1,14 +1,13 @@
-package com.example.eventsapp.data.datasource
+package com.example.eventsapp.data.endpoint
 
 import com.example.eventsapp.data.model.Event
 import com.example.eventsapp.data.model.EventPerson
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface EventService {
+interface EventEndpoint {
     @GET("events")
     suspend fun getEvents(): List<Event>
 

@@ -1,4 +1,4 @@
-package com.example.eventsapp.ui.extensions
+package com.example.eventsapp.ui.extensions.view
 
 import android.view.View
 

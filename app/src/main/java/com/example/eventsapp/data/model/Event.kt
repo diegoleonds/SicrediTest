@@ -11,5 +11,5 @@ data class Event(
     val image: String,
     val price: Double,
     val date: Long,
-    val people: ArrayList<Person>
+    val people: List<Person>
 ): Parcelable

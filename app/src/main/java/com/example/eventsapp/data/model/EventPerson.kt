@@ -8,4 +8,14 @@ data class EventPerson(
     val eventId: Long,
     val name: String,
     val email: String
-) : Parcelable
+) : Parcelable {
+    companion object {
+        fun toEventPerson(event: Event, person: Person): EventPerson {
+            return EventPerson(
+                event.id,
+                person.name,
+                person.email
+            )
+        }
+    }
+}

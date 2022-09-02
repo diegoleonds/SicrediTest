@@ -1,6 +1,6 @@
-package com.example.eventsapp.data.repository
+package com.example.eventsapp.data.service
 
-import com.example.eventsapp.data.datasource.EventService
+import com.example.eventsapp.data.endpoint.EventEndpoint
 import com.example.eventsapp.data.error.ErrorHandler
 import com.example.eventsapp.data.model.EventPerson
 import com.example.eventsapp.data.model.Result
@@ -9,10 +9,10 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertTrue
 
-internal class EventRepositoryImplTest {
+internal class EventServiceTest {
     private val errorHandler: ErrorHandler = mockk()
-    private val dataSource: EventService = mockk()
-    private val repository = EventRepositoryImpl(dataSource, errorHandler)
+    private val endpoint: EventEndpoint = mockk()
+    private val repository = EventService(endpoint, errorHandler)
 
     private val eventPerson = EventPerson(
         eventId = 1L,
@@ -22,14 +22,14 @@ internal class EventRepositoryImplTest {
 
     @Test
     fun `Should return success result when dataSource getEvents is successful`() = runBlocking {
-        coEvery { dataSource.getEvents() } returns emptyList()
+        coEvery { endpoint.getEvents() } returns emptyList()
 
         assertTrue(repository.getEvents() is Result.Success)
     }
 
     @Test
     fun `Should return fail result when dataSource getEvents throw an error`() = runBlocking {
-        coEvery { dataSource.getEvents() } throws TestException()
+        coEvery { endpoint.getEvents() } throws TestException()
         every { errorHandler.getError(any()) } returns mockk()
 
         assertTrue(repository.getEvents() is Result.Fail)
@@ -38,14 +38,14 @@ internal class EventRepositoryImplTest {
     @Test
     fun `Should return success result when dataSource getEventDetails is successful`() =
         runBlocking {
-            coEvery { dataSource.getEventDetails(any()) } returns mockk()
+            coEvery { endpoint.getEventDetails(any()) } returns mockk()
 
             assertTrue(repository.getEventDetails(1L) is Result.Success)
         }
 
     @Test
     fun `Should return fail result when dataSource getEventDetails throw an error`() = runBlocking {
-        coEvery { dataSource.getEventDetails(any()) } throws TestException()
+        coEvery { endpoint.getEventDetails(any()) } throws TestException()
         every { errorHandler.getError(any()) } returns mockk()
 
         assertTrue(repository.getEventDetails(1L) is Result.Fail)
@@ -53,14 +53,14 @@ internal class EventRepositoryImplTest {
 
     @Test
     fun `Should return success result when dataSource check in is successful`() = runBlocking {
-        coEvery { dataSource.checkIn(any()) } just runs
+        coEvery { endpoint.checkIn(any()) } just runs
 
         assertTrue(repository.checkIn(eventPerson) is Result.Success)
     }
 
     @Test
     fun `Should return fail result when dataSource check in throw an error`() = runBlocking {
-        coEvery { dataSource.checkIn(any()) } throws TestException()
+        coEvery { endpoint.checkIn(any()) } throws TestException()
         every { errorHandler.getError(any()) } returns mockk()
 
         assertTrue(repository.checkIn(eventPerson) is Result.Fail)

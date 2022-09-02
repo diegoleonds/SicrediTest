@@ -23,6 +23,6 @@ class EntryViewModel : ViewModel() {
     }
 
     fun isNameInvalid(name: String?): Boolean {
-        return name?.replace("\\s".toRegex(), "")?.isEmpty() ?: false
+        return name?.replace("\\s".toRegex(), "")?.isEmpty() ?: true
     }
 }

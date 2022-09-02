@@ -18,10 +18,16 @@
     <string name="join_event_btn">Join</string>
     <string name="person_already_in_event_error">This person already is on this event</string>
 
+    <!-- Error Messages -->
+    <string name="unknown_error">Unknown error</string>
+
     <!-- Network Error Messages -->
     <string name="not_found_error">Not found</string>
     <string name="access_denied_error">Access denied</string>
     <string name="service_unavailable_error">Service unavailable</string>
-    <string name="unknown_error">Unknown error</string>
+    <string name="unknown_network_error">Unknown network error</string>
     <string name="error_network_toast">Network error</string>
+
+    <!-- Ui Error Messages -->
+    <string name="person_not_found_error">Could not fetch person data. Try to re-open the app</string>
 </resources>
