@@ -16,10 +16,7 @@ import javax.net.ssl.SSLContext
 
 
 class MyApplication : MultiDexApplication() {
-    /**
-     * Base Application class for the app
-     * Start koin for dependency injection
-     */
+
     override fun onCreate() {
         super.onCreate()
         try {
@@ -28,10 +25,9 @@ class MyApplication : MultiDexApplication() {
             GoogleApiAvailability.getInstance()
                 .showErrorNotification(this, e.connectionStatusCode)
         } catch (e: Exception) {
-            Log.e("MyApplication", e.message ?: "empty message")
+            Log.e("MyApplication", e.message ?: e::class.java.simpleName)
         }
         startKoin {
-            // declare used Android context
             androidContext(this@MyApplication)
             modules(uiModule, dataModule)
         }

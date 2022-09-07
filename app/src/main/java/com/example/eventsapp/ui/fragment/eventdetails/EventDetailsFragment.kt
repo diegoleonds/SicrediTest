@@ -100,18 +100,15 @@ class EventDetailsFragment : Fragment(R.layout.fragment_event_details) {
     }
 
     private fun observeViewModelResult() {
-        viewModel.result.observe(viewLifecycleOwner) { result ->
-            when(result) {
-                is Result.Success -> {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
                     eventPeopleTxtView.text = (event.people.size + 1).toString()
                 }
-                is Result.Fail -> {
+                is UiState.Error -> {
                     joinBtn.isEnabled = true
-                    Toast.makeText(context, getString(result.error.getMessageResource()),
+                    Toast.makeText(context, getString(state.messageResource),
                         Toast.LENGTH_SHORT).show()
-                }
-                is Result.Loading -> {
-
                 }
             }
         }

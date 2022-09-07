@@ -8,7 +8,6 @@ import com.example.eventsapp.util.MainCoroutineRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -27,20 +26,20 @@ internal class EventListViewModelTest {
     private val viewModel = EventListViewModel(service)
 
     @Test
-    fun `Result should be set as Success when service getEvents() is successful`() {
+    fun `State should be set as Success when service getEvents() is successful`() {
         val events = emptyList<Event>()
         coEvery { service.getEvents() } returns Result.Success(events)
 
         viewModel.fetchEvents()
-        assertTrue(viewModel.result.value is Result.Success)
-        assertEquals(events, (viewModel.result.value as Result.Success).data)
+        assertTrue(viewModel.state.value is UiState.Success)
+        assertEquals(events, (viewModel.state.value as UiState.Success).events)
     }
 
     @Test
-    fun `Result should be set as Fail when service getEvents() is successful`() {
+    fun `State should be set as Error when service getEvents() is not successful`() {
         coEvery { service.getEvents() } returns Result.Fail(mockk())
 
         viewModel.fetchEvents()
-        assertTrue(viewModel.result.value is Result.Fail)
+        assertTrue(viewModel.state.value is UiState.Error)
     }
 }

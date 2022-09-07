@@ -10,22 +10,31 @@ import com.example.eventsapp.data.model.Person
 import com.example.eventsapp.data.model.Result
 import com.example.eventsapp.data.service.EventService
 import com.example.eventsapp.ui.error.UiError
+import com.example.eventsapp.ui.extensions.getMessageResource
 import kotlinx.coroutines.launch
+
+sealed class UiState {
+    object Success : UiState()
+    data class Error(val messageResource: Int) : UiState()
+}
 
 class EventDetailsViewModel(
     private val service: EventService
 ) : ViewModel() {
-    private val _result = MutableLiveData<Result<Unit>>()
-    val result: LiveData<Result<Unit>>
-        get() = _result
+    private val _state = MutableLiveData<UiState>()
+    val state: LiveData<UiState>
+        get() = _state
 
     fun eventCheckIn(event: Event, person: Person?) {
-        _result.value = Result.Loading()
         viewModelScope.launch {
-            _result.value = if (person != null) {
-                service.checkIn(EventPerson.toEventPerson(event, person))
+            if (person != null) {
+                _state.value =
+                    when (val result = service.checkIn(EventPerson.toEventPerson(event, person))) {
+                        is Result.Success -> UiState.Success
+                        is Result.Fail -> UiState.Error(result.error.getMessageResource())
+                    }
             } else {
-                Result.Fail(UiError.PersonNotFound)
+                _state.value = UiState.Error(UiError.PersonNotFound.getMessageResource())
             }
         }
     }

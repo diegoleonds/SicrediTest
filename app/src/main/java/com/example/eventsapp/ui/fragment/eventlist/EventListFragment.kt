@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.eventsapp.R
-import com.example.eventsapp.data.model.Result
-import com.example.eventsapp.ui.extensions.getMessageResource
 import com.example.eventsapp.ui.extensions.view.gone
 import com.example.eventsapp.ui.extensions.view.visible
 import com.example.eventsapp.ui.fragment.eventdetails.EventDetailsFragment
@@ -68,17 +66,17 @@ class EventListFragment : Fragment(R.layout.fragment_events_list) {
     }
 
     private fun observeViewModelResult() {
-        viewModel.result.observe(viewLifecycleOwner) { result ->
-            when(result) {
-                is Result.Success -> {
-                    adapter.events = result.data
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    adapter.events = state.events
                     loadingCircle.gone()
                     tryAgainBtn.gone()
                     errorMessage.gone()
 
                     eventList.visible()
                 }
-                is Result.Fail -> {
+                is UiState.Error -> {
                     loadingCircle.gone()
                     eventList.gone()
 
@@ -86,9 +84,9 @@ class EventListFragment : Fragment(R.layout.fragment_events_list) {
                     setTryAgainBtnClick()
 
                     errorMessage.visible()
-                    errorMessage.text = getString(result.error.getMessageResource())
+                    errorMessage.text = getString(state.messageResource)
                 }
-                is Result.Loading -> {
+                is UiState.Loading -> {
                     eventList.gone()
                     tryAgainBtn.gone()
                     errorMessage.gone()
