@@ -1,38 +1,25 @@
 package com.example.eventsapp.ui.fragment.eventdetails
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.eventsapp.R
 import com.example.eventsapp.data.model.Event
-import com.example.eventsapp.data.model.Result
-import com.example.eventsapp.ui.extensions.getMessageResource
+import com.example.eventsapp.databinding.FragmentEventDetailsBinding
 import com.example.eventsapp.ui.extensions.toDateString
 import com.example.eventsapp.ui.extensions.view.getPersonFromSharedPreferences
 import com.example.eventsapp.ui.extensions.view.gone
+import com.example.eventsapp.ui.fragment.base.BaseFragment
 import com.example.eventsapp.ui.glide.ImgLoader
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class EventDetailsFragment : Fragment(R.layout.fragment_event_details) {
+class EventDetailsFragment :
+    BaseFragment<FragmentEventDetailsBinding>(R.layout.fragment_event_details) {
     private val viewModel: EventDetailsViewModel by viewModel()
-
-    private lateinit var backFab: FloatingActionButton
-    private lateinit var imgEvent: ImageView
-    private lateinit var eventNameTxtView: TextView
-    private lateinit var eventDateTxtView: TextView
-    private lateinit var eventPriceTxtView: TextView
-    private lateinit var eventDescriptionTxtView: TextView
-    private lateinit var eventPeopleTxtView: TextView
-    private lateinit var readMoreTxtClick: TextView
-    private lateinit var joinBtn: Button
-
     private lateinit var event: Event
 
     companion object {
@@ -41,7 +28,6 @@ class EventDetailsFragment : Fragment(R.layout.fragment_event_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        inflateViews(view)
         setBackFabClick(view)
         getDataFromBundle()
         setReadMoreTxtClick()
@@ -49,20 +35,14 @@ class EventDetailsFragment : Fragment(R.layout.fragment_event_details) {
         observeViewModelResult()
     }
 
-    private fun inflateViews(view: View) {
-        backFab = view.findViewById(R.id.event_info_back_fab)
-        eventNameTxtView = view.findViewById(R.id.event_name)
-        eventDateTxtView = view.findViewById(R.id.event_info_date)
-        eventPriceTxtView = view.findViewById(R.id.event_info_price)
-        eventDescriptionTxtView = view.findViewById(R.id.event_info_description)
-        eventPeopleTxtView = view.findViewById(R.id.event_info_people)
-        imgEvent = view.findViewById(R.id.event_img)
-        readMoreTxtClick = view.findViewById(R.id.read_more_txt_click)
-        joinBtn = view.findViewById(R.id.join_btn)
-    }
+    override fun initViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        attachToParent: Boolean
+    ) = FragmentEventDetailsBinding.inflate(inflater, container, attachToParent)
 
     private fun setBackFabClick(view: View) {
-        backFab.setOnClickListener {
+        binding.eventInfoBackFab.setOnClickListener {
             Navigation.findNavController(view).popBackStack()
         }
     }
@@ -74,41 +54,47 @@ class EventDetailsFragment : Fragment(R.layout.fragment_event_details) {
             val imgLoader = ImgLoader(Glide.with(this))
             imgLoader.loadImage(
                 imgUrl = event.image,
-                imgView = imgEvent
+                imgView = binding.eventImg
             )
 
-            eventDateTxtView.text = event.date.toDateString()
-            eventNameTxtView.text = event.title
-            eventPriceTxtView.text = event.price.toString()
-            eventDescriptionTxtView.text = event.description
-            eventPeopleTxtView.text = event.people.size.toString()
+            with(binding) {
+                eventInfoDate.text = event.date.toDateString()
+                eventName.text = event.title
+                eventInfoPrice.text = event.price.toString()
+                eventInfoDescription.text = event.description
+                eventInfoPeople.text = event.people.size.toString()
+            }
         }
     }
 
     private fun setReadMoreTxtClick() {
-        readMoreTxtClick.setOnClickListener {
-            eventDescriptionTxtView.maxLines = 1000
-            readMoreTxtClick.gone()
+        binding.readMoreTxtClick.setOnClickListener {
+            with(binding) {
+                eventInfoDescription.maxLines = 1000
+                readMoreTxtClick.gone()
+            }
         }
     }
 
     private fun setJoinBtnClick() {
-        joinBtn.setOnClickListener {
+        binding.joinBtn.setOnClickListener {
             viewModel.eventCheckIn(event, activity?.getPersonFromSharedPreferences())
-            joinBtn.isEnabled = false
+            binding.joinBtn.isEnabled = false
         }
     }
 
     private fun observeViewModelResult() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
-            when(state) {
+            when (state) {
                 is UiState.Success -> {
-                    eventPeopleTxtView.text = (event.people.size + 1).toString()
+                    binding.eventInfoPeople.text = (event.people.size + 1).toString()
                 }
                 is UiState.Error -> {
-                    joinBtn.isEnabled = true
-                    Toast.makeText(context, getString(state.messageResource),
-                        Toast.LENGTH_SHORT).show()
+                    binding.joinBtn.isEnabled = true
+                    Toast.makeText(
+                        context, getString(state.messageResource),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
