@@ -67,7 +67,7 @@ class EventListFragment : BaseFragment<FragmentEventsListBinding>(R.layout.fragm
                         eventsAdapter.events = state.events
                         eventsListLoading.gone()
                         tryAgainBtn.gone()
-                        erroMessageTxt.gone()
+                        errorMessageTxt.gone()
 
                         binding.eventsRv.visible()
                     }
@@ -78,13 +78,13 @@ class EventListFragment : BaseFragment<FragmentEventsListBinding>(R.layout.fragm
                         binding.tryAgainBtn.visible()
                         setTryAgainBtnClick()
 
-                        binding.erroMessageTxt.visible()
-                        binding.erroMessageTxt.text = getString(state.messageResource)
+                        binding.errorMessageTxt.visible()
+                        binding.errorMessageTxt.text = getString(state.messageResource)
                     }
                     is UiState.Loading -> {
                         binding.eventsRv.gone()
                         binding.tryAgainBtn.gone()
-                        binding.erroMessageTxt.gone()
+                        binding.errorMessageTxt.gone()
 
                         binding.eventsListLoading.visible()
                     }

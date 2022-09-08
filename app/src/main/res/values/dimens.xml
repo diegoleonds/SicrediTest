@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacings: margin and padding -->
+    <dimen name="spacing_1x">5dp</dimen>
+    <dimen name="spacing_4x">20dp</dimen>
+    <dimen name="spacing_8x">40dp</dimen>
+    <dimen name="spacing_20x">100dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_size_error">30sp</dimen>
+
+    <!-- Gradient -->
+    <dimen name="gradient_height">80dp</dimen>
+    <dimen name="gradient_width">0dp</dimen>
+
+    <!-- Default list item -->
+    <dimen name="list_item_spacing_horizontal">10dp</dimen>
+    <dimen name="list_item_spacing_vertical">5dp</dimen>
+
+    <!-- Entry fragment sizes -->
+    <dimen name="entry_fragment_button_height">55dp</dimen>
+
+    <!-- Event item -->
+    <dimen name="event_item_height">218dp</dimen>
+</resources>

@@ -31,4 +31,8 @@
         <item name="android:textColor">@color/event_info_icon_color</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="android:height">@dimen/entry_fragment_button_height</item>
+    </style>
 </resources>

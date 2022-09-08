@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/gradient_bg"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/gradient_width"
+            android:layout_height="@dimen/gradient_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/event_img"
